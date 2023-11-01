@@ -18,3 +18,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/memes', [MemeController::class, 'index']);
 
 Route::post('/memes', [MemeController::class, 'store']);
+
+Route::put('/memes/{id}', [MemeController::class, 'update']);

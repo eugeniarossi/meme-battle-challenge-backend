@@ -14,7 +14,7 @@ class MemeController extends Controller
      */
     public function index()
     {
-        $memes = Meme::select('url', 'score')->get();
+        $memes = Meme::all();
 
         return response()->json($memes);
     }
@@ -39,7 +39,7 @@ class MemeController extends Controller
     {
         $data = $request->all();
 
-        // Verifica se 'preview' è un array e se sì, convertilo in una stringa JSON
+        // verifica se 'preview' è un array, se lo è lo converte in una stringa JSON
         if (is_array($data['preview'])) {
             $data['preview'] = json_encode($data['preview']);
         }
@@ -74,13 +74,21 @@ class MemeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\UpdateProductRequest  $request
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $meme = Meme::find($id);
+
+        if ($meme) {
+            $meme->score = $meme->score + 1;
+            $meme->save();
+            return response()->json(['message' => 'Punteggio del meme aggiornato con successo']);
+        } else {
+            return response()->json(['message' => 'Meme non trovato'], 404);
+        }
     }
 
     /**
