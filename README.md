@@ -8,3 +8,4 @@ Passi da effettuare per avviare il progetto:
 5. Eseguire il comando `npm i` o `npm install`
 6. Aprire un secondo `terminale`
 7. In uno dei due terminali, eseguire il comando `php artisan serve`. Nell'altro, `npm run dev`
+8. Eseguire il comando `php artisan migrate` per generare tabelle e database
