@@ -15,8 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// definisco le rotte
+
+// rotta get per leggere i dati
 Route::get('/memes', [MemeController::class, 'index']);
 
+// rotta post per creare un nuovo elemento meme
 Route::post('/memes', [MemeController::class, 'store']);
 
+// rotta put per aggiornare i dati
 Route::put('/memes/{id}', [MemeController::class, 'update']);

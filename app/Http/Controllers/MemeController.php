@@ -14,9 +14,9 @@ class MemeController extends Controller
      */
     public function index()
     {
-        $memes = Meme::all();
+        $memes = Meme::all(); // prende tutti i meme
 
-        return response()->json($memes);
+        return response()->json($memes); // e li restituisce in formato json
     }
 
     /**
@@ -35,16 +35,17 @@ class MemeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    // funzione per creare un nuovo record nel db
     public function store(Request $request)
     {
-        $data = $request->all();
+        $data = $request->all(); // salvo i dati passati dal frontend in $data
 
-        // verifica se 'preview' è un array, se lo è lo converte in una stringa JSON
-        if (is_array($data['preview'])) {
-            $data['preview'] = json_encode($data['preview']);
+        if (is_array($data['preview'])) {  // verifica se 'preview' è un array 
+            $data['preview'] = json_encode($data['preview']); // se lo è lo converte in una stringa JSON
         }
 
-        $newMeme = Meme::create($data);
+        $newMeme = Meme::create($data); // crea un nuovo record utilizzando il modello Meme
 
         return response()->json(['message' => 'Meme creato con successo'], 201);
     }
@@ -78,14 +79,16 @@ class MemeController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
+
+    // funzione per incrementare lo score di un meme già presente nel db
     public function update(Request $request, $id)
     {
-        $meme = Meme::find($id);
+        $meme = Meme::find($id); // cerca tra i meme quello con l'id passato dal frontend
 
-        if ($meme) {
-            $meme->score = $meme->score + 1;
-            $meme->save();
-            return response()->json(['message' => 'Punteggio del meme aggiornato con successo']);
+        if ($meme) { // controlla che il meme esista
+            $meme->score = $meme->score + 1; // incrementa lo score
+            $meme->save(); //salva i nuovi dati
+            return response()->json(['message' => 'Punteggio aggiornato con successo']);
         } else {
             return response()->json(['message' => 'Meme non trovato'], 404);
         }
